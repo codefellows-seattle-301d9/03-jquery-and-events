@@ -7,17 +7,16 @@
 var articleView = {};
 
 articleView.populateFilters = function () {
-  $('article').not('.template').each(function() { // got thru all but template, then loop through one by one.
+  $('article').not('.template').each(function() {
     var authorName, category, optionTag;
-    authorName = $(this).find('address a').text(); // find the anchor tag with the author's name and grab the text value.
-    optionTag = '<option value="' + authorName + '">' + authorName + '</option>'; //create an option tag for that author.
+    authorName = $(this).find('address a').text();
+    optionTag = '<option value="' + authorName + '">' + authorName + '</option>';
     $('#author-filter').append(optionTag);
 
     category = $(this).attr('data-category');
     optionTag = '<option value="' + category + '">' + category + '</option>';
-    if ($('category-filter option[value="' + category + '"]').length === 0) { // testing the length of a value to see if there's a match
+    if ($('category-filter option[value="' + category + '"]').length === 0) {
       $('category-filter').append(optionTag);
-
     }
   });
 };
@@ -25,15 +24,15 @@ articleView.populateFilters = function () {
 articleView.handleAuthorFilter = function () {
   $('#author-filter').on('change', function() {
     if($(this.val())) {
-      /* TODO: If the select box changes to an option that has a value, we should:
-       1. hide ALL articles
-       2. fade in only the articles that match that selection based on the author-filter
-          that was selected. Use an 'attribute selector' to find those articles that
-          match the value, and fade them in for the reader.*/
+      var $author = $(this.val());
+      $('article').hide();
+      $('article').each(function() {
+        if ($(this).attr('author') === $author) {
+          $(this).fadeIn();
+        }
+      });
     } else {
-      /* TODO: otherwise we should:
-        1. Show all the articles.
-        2. Except the one article that we are using as a template */
+      $('article').not('.template').fadeIn();
     }
     $('#category-filter').val('');
   });
