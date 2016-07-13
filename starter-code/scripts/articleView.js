@@ -15,16 +15,16 @@ articleView.populateFilters = function () {
 
     category = $(this).attr('data-category');
     optionTag = '<option value="' + category + '">' + category + '</option>';
-    if ($('category-filter option[value="' + category + '"]').length === 0) {
-      $('category-filter').append(optionTag);
+    if ($('#category-filter option[value="' + category + '"]').length === 0) {
+      $('#category-filter').append(optionTag);
     }
   });
 };
 
 articleView.handleAuthorFilter = function () {
   $('#author-filter').on('change', function() {
-    if($(this.val())) {
-      var $author = $(this.val());
+    if($(this).val()) {
+      var $author = $(this).val();
       $('article').hide();
       $('article').each(function() {
         if ($(this).attr('author') === $author) {
@@ -39,9 +39,20 @@ articleView.handleAuthorFilter = function () {
 };
 
 articleView.handleCategoryFilter = function () {
-  /* TODO: complete this filter just like we do for the #author-filter above,
-    we should also handle change events on the #category-filter element. Be sure
-    to reset the #author-filter while you're at it. */
+  $('#category-filter').on('change', function () {
+    if($(this).val()) {
+      var $cat = $(this).val();
+      $('article').hide();
+      $('article').each(function() {
+        if ($(this).attr('data-category') === $cat) {
+          $(this).fadeIn();
+        }
+      });
+    } else {
+      $('article').not('.template').fadeIn();
+    }
+    $('#author-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function () {
@@ -72,4 +83,6 @@ articleView.setTeasers = function () {
 };
 
 //TODO: Invoke all of the above functions (methods):
-//articleView.handleAuthorFilter();
+articleView.populateFilters();
+articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
