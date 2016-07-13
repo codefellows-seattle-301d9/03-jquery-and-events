@@ -73,3 +73,4 @@ articleView.setTeasers = function () {
 };
 
 //TODO: Invoke all of the above functions (methods):
+//articleView.handleAuthorFilter();
