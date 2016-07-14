@@ -21,8 +21,7 @@ articleView.handleAuthorFilter = function() {
     console.log($(this).val());
     if ($(this).val()) {
       $('article').hide();
-      $('article').fadeIn(500);
-      $('article[author = "' + $(this).val() + '"]').show();
+      $('article[author = "' + $(this).val() + '"]').fadeIn(500);
       /* TODO: If the select box changes to an option that has a value,
       we should:
       1. Hide all the articles,
@@ -31,6 +30,8 @@ articleView.handleAuthorFilter = function() {
         those articles that match the value, and fade them in
         for the reader. */
     } else {
+      $('article').show();
+      $('.template').hide();
       /* TODO: Otherwise, we should:
       1. Show all the articles.
       2. Except the one article we are using as a template. */
@@ -40,9 +41,20 @@ articleView.handleAuthorFilter = function() {
 };
 
 articleView.handleCategoryFilter = function() {
+  $('#category-filter').on('change', function() {
+    console.log($(this).val());
+    if ($(this).val()) {
+      $('article').hide();
+      $('article[data-category = "' + $(this).val() + '"]').fadeIn(500);
+    } else {
+      $('article').show();
+      $('.template').hide();
+    }
   /* TODO: Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
+    $('#author-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function () {
@@ -52,8 +64,10 @@ articleView.handleMainNav = function () {
   1. Hide all the .tab-content sections.
   2. Fade in the single .tab-content section that is associated withthe clicked
   .tab element's data-content attribute. */
-
-  $('.main-nav').on(/* CODE GOES HERE */);
+  //
+  // $('.main-nav').on('click', function() {
+  //
+  // };
 
   $('.main-nav .tab:first').click();
 };
@@ -74,3 +88,4 @@ articleView.setTeasers = function() {
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
