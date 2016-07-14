@@ -80,24 +80,19 @@ articleView.handleMainNav = function () {
 articleView.setTeasers = function () {
   /* Hide any elements after the first two (<p> tags in this case) in any
      article body. */
+
   $('article').each(function() {
+    $(this).removeClass('show');
     $('.article-body *:nth-of-type(n+2)').hide();
   });
 
-
   $('article a').on('click', function(e) {
-    console.log($(this));
     e.stopPropagation();
     e.preventDefault();
-    var $prev = $('this').prev();
-    $('.article-body *:nth-of-type(n+2)').fadeIn();
-
-
-
+    var $selection = $(e.target).prev();
+    $selection.addClass('show');
+    $('.show *:nth-of-type(n+2)').fadeIn();
   });
-
-
-
 
   /* TODO: Add a delegated event handler to reveal the entire article
      (the remaining paragraphs). When a .read-on link is clicked, we can:
