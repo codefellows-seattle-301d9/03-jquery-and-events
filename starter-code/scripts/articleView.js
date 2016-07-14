@@ -56,16 +56,18 @@ articleView.handleCategoryFilter = function() {
 };
 
 articleView.handleMainNav = function () {
-  /* TODO: Complete the delegated event handler below to help
+  /* TODO DONE: Complete the delegated event handler below to help
   power the tabs feature.
   Clicking any .tab element should:
   1. Hide all the .tab-content sections.
-  2. Fade in the single .tab-content section that is associated withthe clicked
+  2. Fade in the single .tab-content section that is associated with the clicked
   .tab element's data-content attribute. */
-
-  $('.main-nav').on(/* CODE GOES HERE */);
-
-  $('.main-nav .tab:first').click();
+  $('.tab').on('click', function() {
+    $('.tab-content').hide();
+    var $x = '#' + $(this).data('content');
+    $('' + $x).show('slow');
+  });
+  // $('.main-nav .tab:first').click();
 };
 
 articleView.setTeasers = function() {
@@ -73,15 +75,31 @@ articleView.setTeasers = function() {
   in any article body: */
   $('.article-body *:nth-of-type(n+2)').hide();
 
-  /* TODO: Add a delegated event handler to reveal the remaining
+  /* TODO DONE: Add a delegated event handler to reveal the remaining
   paragraph.  When a .read-on link is clicked, we can:
   1. Prevent the default action of a link.
   2. Reveal everything in that particular article now.
   3. Hide that read-on link! */
-  // STRETCH GOAL!:  change the 'Read On' link to display 'Show Less'
+  // TODO DONE STRETCH GOAL!:  change the 'Read On' link to display 'Show Less'
+  $(document).on('click', '.read_on', function(event) {
+    event.preventDefault();
+    $(this).prev().find('p').nextAll().show();
+    $(this).text('Show Less \u2190');
+    $(this).removeClass('read_on');
+    $(this).addClass('show_less');
+  });
+  $(document).on('click', '.show_less', function(event) {
+    event.preventDefault();
+    $(this).prev().find('p').nextAll().hide();
+    $(this).text('Read More \u2192');
+    $(this).removeClass('show_less');
+    $(this).addClass('read_on');
+  });
 };
 
-// TODO: Invoke all of the above functions (I mean, methods!):
+// TODO DONE: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
