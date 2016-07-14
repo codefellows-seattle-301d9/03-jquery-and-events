@@ -56,14 +56,6 @@ articleView.handleCategoryFilter = function () {
 };
 
 articleView.handleMainNav = function () {
-  /* TODO: Complete the delegated event handler below to help power the tabs feature.
-     Clicking any .tab element should:
-     1. hide all the .tab-content sections.
-     2. fade in the single .tab-content section that is associated with the clicked
-        .tab element's data-content attribute. This should match the id of the section
-        that we want to handle. Dynamically building this out (with concatination)
-        be necessary... */
-
   $('.main-nav').on('click', '.tab', function() {
     var $dataContent = $(this).attr('data-content');
     $('section.tab-content').hide();
@@ -82,8 +74,8 @@ articleView.setTeasers = function () {
      article body. */
 
   $('article').each(function() {
-    $(this).removeClass('show');
     $('.article-body *:nth-of-type(n+2)').hide();
+    $(this).removeClass('show');
   });
 
   $('article a').on('click', function(e) {
