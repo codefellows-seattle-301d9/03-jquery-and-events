@@ -64,7 +64,15 @@ articleView.handleMainNav = function () {
         that we want to handle. Dynamically building this out (with concatination)
         be necessary... */
 
-  $('main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav').on('click', '.tab', function() {
+    var $dataContent = $(this).attr('data-content');
+    $('section.tab-content').hide();
+    $('section.tab-content').each(function() {
+      if ($(this).attr('id') === $dataContent) {
+        $(this).fadeIn();
+      }
+    });
+  });
 
   $('.main-nav .tab:first').click();
 };
@@ -86,3 +94,4 @@ articleView.setTeasers = function () {
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
+articleView.handleMainNav();
