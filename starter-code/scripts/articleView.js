@@ -56,6 +56,14 @@ articleView.handleCategoryFilter = function () {
 };
 
 articleView.handleMainNav = function () {
+  /* TODO: Complete the delegated event handler below to help power the tabs feature.
+     Clicking any .tab element should:
+     1. hide all the .tab-content sections.
+     2. fade in the single .tab-content section that is associated with the clicked
+        .tab element's data-content attribute. This should match the id of the section
+        that we want to handle. Dynamically building this out (with concatination)
+        be necessary... */
+
   $('.main-nav').on('click', '.tab', function() {
     var $dataContent = $(this).attr('data-content');
     $('section.tab-content').hide();
@@ -72,7 +80,6 @@ articleView.handleMainNav = function () {
 articleView.setTeasers = function () {
   /* Hide any elements after the first two (<p> tags in this case) in any
      article body. */
-
   $('article').each(function() {
     $('.article-body *:nth-of-type(n+2)').hide();
     $(this).removeClass('show');
@@ -82,9 +89,17 @@ articleView.setTeasers = function () {
     e.stopPropagation();
     e.preventDefault();
     var $selection = $(e.target).prev();
-    $selection.addClass('show');
-    $('.show *:nth-of-type(n+2)').fadeIn();
+    if ($selection.hasClass('show')) {
+      $(e.target).html('Read On &#8594;');
+    } else {
+      $(e.target).html('&#8592; Show Less');
+      $selection.addClass('show');
+    }
+    $('.show *:nth-of-type(n+2)').toggle();
   });
+
+
+
 
   /* TODO: Add a delegated event handler to reveal the entire article
      (the remaining paragraphs). When a .read-on link is clicked, we can:
