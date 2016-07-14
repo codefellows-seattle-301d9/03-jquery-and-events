@@ -33,29 +33,29 @@ articleView.handleAuthorFilter = function() {
       /* TODO: DONE Otherwise, we should:
       1. Show all the articles.
       2. Except the one article we are using as a template. */
-      
-     $('article').fadeIn();
-     $('.template').hide();
+
+      $('article').fadeIn();
+      $('.template').hide();
     }
     $('#category-filter').val('');
   });
 };
 
 articleView.handleCategoryFilter = function() {
-  /* TODO: Just like we do for #author-filter above, we should also handle
+  /* TODO: Done Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
-    $('#category-filter').on('change', function() {
-      if ($(this).val()) {
-        $('article').hide();
-        $('article[data-category="' + $(this).val() + '"]').fadeIn();
-      } else {
-       $('article').fadeIn();
-       $('.template').hide();
-      }
-      $('#author-filter').val('');
-    });
-  };
+  $('#category-filter').on('change', function() {
+    if ($(this).val()) {
+      $('article').hide();
+      $('article[data-category="' + $(this).val() + '"]').fadeIn();
+    } else {
+      $('article').fadeIn();
+      $('.template').hide();
+    }
+    $('#author-filter').val('');
+  });
+};
 
 articleView.handleMainNav = function () {
   /* TODO: Complete the delegated event handler below to help
@@ -86,5 +86,4 @@ articleView.setTeasers = function() {
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
-
-
+articleView.handleCategoryFilter();
