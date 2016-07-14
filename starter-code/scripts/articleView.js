@@ -81,7 +81,21 @@ articleView.setTeasers = function() {
   1. Prevent the default action of a link.
   2. Reveal everything in that particular article now.
   3. Hide that read-on link! */
+  $('.read-on').on('click', function(e) {
+    e.preventDefault();
+    var articleUrl = $(this).parent();
+    if ($(this).html() === 'Show Less') {
+      articleUrl.find('p').hide();
+      articleUrl.find('p:nth-of-type(2)').show();
+      $(this).html('Read on');
+    }
+    else {
+      articleUrl.find('p').show();
+      $(this).html('Show Less');
+    }
+  });
   // STRETCH GOAL!:  change the 'Read On' link to display 'Show Less'
+
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
@@ -89,3 +103,4 @@ articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
 articleView.handleMainNav();
+articleView.setTeasers();
