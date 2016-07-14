@@ -18,7 +18,8 @@ articleView.populateFilters = function() {
 
 articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
-    if ($(this.val())) {
+    console.log($(this).val());
+    if ( $(this).val() ) {
       /* TODO: If the select box changes to an option that has a value,
       we should:
       1. Hide all the articles,
@@ -26,6 +27,11 @@ articleView.handleAuthorFilter = function() {
         that was selected. Use an "attribute selector" to find
         those articles that match the value, and fade them in
         for the reader. */
+      $('#articles article').hide();
+      // ($('#articles article').contains( $(this).val() )).show('slow');
+      // console.log(($('#articles article').contains( $(this).val() )));
+      $('#articles article[data-author = "' + $(this).val() + '"]').show('slow');
+
     } else {
       /* TODO: Otherwise, we should:
       1. Show all the articles.
@@ -69,3 +75,4 @@ articleView.setTeasers = function() {
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
+articleView.handleAuthorFilter();
